@@ -65,4 +65,4 @@ ${OBJS_DIR}%.o : ${SRCS_DIR}%.c
 ######################## TEST ########################
 
 test : all
-	./${NAME}
+	./${NAME} infile "cat" "wc -l" outfile
