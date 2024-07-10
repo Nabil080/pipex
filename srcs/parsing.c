@@ -6,16 +6,35 @@
 /*   By: nbellila <nbellila@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 13:59:38 by nbellila          #+#    #+#             */
-/*   Updated: 2024/07/10 20:51:30 by nbellila         ###   ########.fr       */
+/*   Updated: 2024/07/10 21:37:33 by nbellila         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	init_data(t_data *data)
+void	init_data(int argc, char **argv, t_data *data)
 {
 	data->paths = NULL;
 	data->args = NULL;
+	data->is_heredoc = 0;
+	if (!ft_strncmp(argv[1], "here_doc", 8))
+		data->is_heredoc = 1;
+	data->in_fd = 0;
+	if (!data->is_heredoc)
+	{
+		data->in_fd = open(argv[1], O_RDONLY, 0777);
+		if (data->in_fd < 1)
+			exit_error("Can't open infile", NULL);
+	}
+	if (!data->is_heredoc)
+		data->out_fd = open(argv[argc - 1], O_WRONLY | O_CREAT | O_TRUNC, 0777);
+	else
+		data->out_fd = open(argv[argc - 1], O_WRONLY | O_CREAT | O_APPEND, 0777);
+	if (data->out_fd < 1)
+	{
+		close(data->in_fd);
+		exit_error("Can't open outfile", NULL);
+	}
 }
 
 char	**get_paths(char **envp)
