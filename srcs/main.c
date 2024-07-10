@@ -6,7 +6,7 @@
 /*   By: nbellila <nbellila@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 11:22:38 by nbellila          #+#    #+#             */
-/*   Updated: 2024/07/10 20:33:31 by nbellila         ###   ########.fr       */
+/*   Updated: 2024/07/10 20:50:41 by nbellila         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,18 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_data	*data;
+	t_data	data;
 
 	check_args(argc, argv);
-	data = init_data();
-	if (!data)
-		exit_error("An allocation failed", NULL);
-	data->paths = get_paths(envp);
-	if (!data->paths)
-		exit_error("An allocation failed", data);
-	data->args = get_args(argc, argv);
-	if (!data->args)
-		exit_error("An allocation failed", data);
-	if (!check_exec(data))
-		exit_error("A command is unknown", data);
-	free_data(data);
+	init_data(&data);
+	data.paths = get_paths(envp);
+	if (!data.paths)
+		exit_error("An allocation failed", &data);
+	data.args = get_args(argc, argv);
+	if (!data.args)
+		exit_error("An allocation failed", &data);
+	if (!check_exec(&data))
+		exit_error("A command is unknown", &data);
+	free_data(&data);
 	exit(EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: nbellila <nbellila@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:05:26 by nbellila          #+#    #+#             */
-/*   Updated: 2024/07/10 20:33:35 by nbellila         ###   ########.fr       */
+/*   Updated: 2024/07/10 20:51:29 by nbellila         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ void	free_data(t_data *data)
 {
 	size_t	i;
 
-	if (!data)
-		return ;
 	if (data->paths)
 		free_2d((void **)data->paths, 0);
 	if (data->args)
@@ -40,5 +38,4 @@ void	free_data(t_data *data)
 		}
 		free(data->args);
 	}
-	free(data);
 }
