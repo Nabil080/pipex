@@ -6,7 +6,7 @@
 /*   By: nbellila <nbellila@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 11:22:59 by nbellila          #+#    #+#             */
-/*   Updated: 2024/07/10 18:17:14 by nbellila         ###   ########.fr       */
+/*   Updated: 2024/07/10 20:34:06 by nbellila         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ typedef struct s_data {
 /*check*/
 void	check_args(int argc, char **argv);
 /*parsing*/
-t_data *init_data(void);
+t_data	*init_data(void);
 
 char	**get_paths(char **envp);
 
