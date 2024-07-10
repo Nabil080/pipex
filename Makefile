@@ -14,9 +14,9 @@ INCLUDES =	includes \
 ######################## SOURCES ########################
 
 SRCS_NAMES =	main.c \
+				init.c \
 				parsing.c \
-				exit.c \
-				check.c
+				exit.c
 
 SRCS_DIR = srcs/
 
