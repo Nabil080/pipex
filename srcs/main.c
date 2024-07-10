@@ -6,16 +6,16 @@
 /*   By: nbellila <nbellila@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 11:22:38 by nbellila          #+#    #+#             */
-/*   Updated: 2024/07/10 11:25:09 by nbellila         ###   ########.fr       */
+/*   Updated: 2024/07/10 13:59:37 by nbellila         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int	main(int argc, char **argv)
+int	main(int argc, char **argv, char **envp)
 {
-	if (argc < 2)
-		return (ft_putstr("No args\n"), 1);
-	ft_putstr(argv[1]);
-	return (0);
+	char	**paths;
+
+	paths = get_paths(envp);
+	ft_putarr(paths);
 }

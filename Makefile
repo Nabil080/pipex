@@ -4,7 +4,7 @@ NAME = pipex
 
 CC = cc
 
-FLAGS = -Wall -Wextra -Werror
+FLAGS = #-Wall -Wextra -Werror
 
 LIBS = libft \
 
@@ -14,6 +14,7 @@ INCLUDES =	includes \
 ######################## SOURCES ########################
 
 SRCS_NAMES =	main.c \
+				parsing.c
 
 SRCS_DIR = srcs/
 
@@ -60,3 +61,6 @@ ${OBJS_DIR}%.o : ${SRCS_DIR}%.c
 	${CC} ${FLAGS} ${CPPFLAGS} ${foreach include, ${INCLUDES},-I ${include}} -c $< -o $@
 	
 ######################## TEST ########################
+
+test : all
+	./${NAME}
