@@ -23,6 +23,7 @@ PRINTERS =	ft_putchar_fd.c \
 			ft_putendl_fd.c \
 			ft_putnbr_fd.c \
 			ft_putnbr_base.c \
+			ft_putarr.c \
 			ft_putlst.c \
 			ft_printf.c
 

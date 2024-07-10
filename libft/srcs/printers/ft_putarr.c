@@ -1,21 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   ft_putarr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nbellila <nbellila@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/10 11:22:59 by nbellila          #+#    #+#             */
-/*   Updated: 2024/07/10 14:02:28 by nbellila         ###   ########.fr       */
+/*   Created: 2024/07/10 13:56:01 by nbellila          #+#    #+#             */
+/*   Updated: 2024/07/10 13:58:25 by nbellila         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#include "libft.h"
 
-# include "libft.h"
+void	ft_putarr(char **arr)
+{
+	size_t	i;
 
-/*parsing*/
-char	**get_paths(char **envp);
-
-#endif
+	i = 0;
+	while (arr[i])
+	{
+		ft_printf("arr[%d]: %s\n", i, arr[i]);
+		i++;
+	}
+}

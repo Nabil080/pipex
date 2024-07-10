@@ -6,7 +6,7 @@
 /*   By: nbellila <nbellila@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 14:19:29 by nbellila          #+#    #+#             */
-/*   Updated: 2024/07/10 01:55:32 by nbellila         ###   ########.fr       */
+/*   Updated: 2024/07/10 13:56:35 by nbellila         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 int		ft_printf(const char *str, ...);
 
 void	ft_putstr(const char *s);
+
+void	ft_putarr(char **arr);
 
 int		ft_putchar_fd(char c, int fd);
 
