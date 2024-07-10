@@ -6,7 +6,7 @@
 /*   By: nbellila <nbellila@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 13:59:38 by nbellila          #+#    #+#             */
-/*   Updated: 2024/07/10 16:56:05 by nbellila         ###   ########.fr       */
+/*   Updated: 2024/07/10 18:18:19 by nbellila         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_data *init_data(void)
 	if (!data)
 		exit(EXIT_FAILURE);
 	data->paths = NULL;
-	data->cmds = NULL;
+	data->args = NULL;
 	return (data);
 }
 
@@ -38,31 +38,59 @@ char	**get_paths(char **envp)
 	return (NULL);
 }
 
-static char	*get_command(char *name, char **paths)
+char	***get_args(int argc, char **argv)
 {
-	if (ft_strcontains(name, ' '))
-		name = ft_substr(name, 0, ft_strcontains(name, ' '));
-	else
-		name = ft_strdup(name);
-	if (!name)
+	char	***args;
+	int		i;
+
+	args = malloc((argc - 2 + 1) * sizeof(char **));
+	if (!args)
 		return (NULL);
-	if (access(name, X_OK) != -1)
-		return (name);
-	return ("nope");
-}
-
-char	**get_commands(t_data *data, int argc, char **argv)
-{
-	char	**cmds;
-	size_t	i;
-
-	cmds = malloc((argc - 3 + 1) * sizeof(char *));
 	i = 0;
 	while (i + 2 < argc - 1)
 	{
-		cmds[i] = get_command(argv[i + 2], data->paths);
+		args[i] = ft_split(argv[i + 2], " ");
+		if (!args[i])
+		{
+			while (i--)
+				free_2d((void **)args[i], ft_strlen((char *)args[i]));
+			return (free(args), NULL);
+		}
 		i++;
 	}
-	cmds[i] = NULL;
-	return (cmds);
+	args[i] = NULL;
+	return (args);
+}
+
+static char	*get_exec(t_data *data, char *name)
+{
+	size_t	i;
+	char	*exec;
+
+	i = 0;
+	while (data->paths[i])
+	{
+		exec = ft_strjoin(data->paths[i], "/");
+		exec = ft_strjoin(exec, name);
+		if (access(exec, X_OK) != -1)
+			return (exec);
+		free(exec);
+		i++;
+	}
+	return (NULL);
+}
+
+void	*check_exec(t_data *data)
+{
+	size_t	i;
+
+	i = 0;
+	while (data->args[i])
+	{
+		if (access(data->args[i][0], X_OK) == -1)
+			data->args[i][0] = get_exec(data, data->args[i][0]);
+		ft_putarr(data->args[i]);
+		i++;
+	}
+	return (data);
 }
