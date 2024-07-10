@@ -6,7 +6,7 @@
 /*   By: nbellila <nbellila@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 13:59:38 by nbellila          #+#    #+#             */
-/*   Updated: 2024/07/10 18:18:19 by nbellila         ###   ########.fr       */
+/*   Updated: 2024/07/10 20:30:10 by nbellila         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_data *init_data(void)
 {
 	t_data *data;
 
-	data = malloc(sizeof(data));
+	data = malloc(sizeof(t_data));
 	if (!data)
 		exit(EXIT_FAILURE);
 	data->paths = NULL;
@@ -53,7 +53,7 @@ char	***get_args(int argc, char **argv)
 		if (!args[i])
 		{
 			while (i--)
-				free_2d((void **)args[i], ft_strlen((char *)args[i]));
+				free_2d((void **)args[i], 0);
 			return (free(args), NULL);
 		}
 		i++;
@@ -62,18 +62,28 @@ char	***get_args(int argc, char **argv)
 	return (args);
 }
 
-static char	*get_exec(t_data *data, char *name)
+static char	*get_exec(t_data *data, char **name)
 {
 	size_t	i;
+	char	*exec_backslash;
 	char	*exec;
 
 	i = 0;
 	while (data->paths[i])
 	{
-		exec = ft_strjoin(data->paths[i], "/");
-		exec = ft_strjoin(exec, name);
+		exec_backslash = ft_strjoin(data->paths[i], "/");
+		if (!exec_backslash)
+			return (NULL);
+		exec = ft_strjoin(exec_backslash, *name);
+		free(exec_backslash);
+		if (!exec)
+			return (NULL);
 		if (access(exec, X_OK) != -1)
-			return (exec);
+		{
+			free(*name);
+			*name = exec;
+			return (*name);
+		}
 		free(exec);
 		i++;
 	}
@@ -88,8 +98,8 @@ void	*check_exec(t_data *data)
 	while (data->args[i])
 	{
 		if (access(data->args[i][0], X_OK) == -1)
-			data->args[i][0] = get_exec(data, data->args[i][0]);
-		ft_putarr(data->args[i]);
+			if (!get_exec(data, &data->args[i][0]))
+				return (NULL);
 		i++;
 	}
 	return (data);
