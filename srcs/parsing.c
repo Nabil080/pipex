@@ -6,7 +6,7 @@
 /*   By: nbellila <nbellila@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 13:59:38 by nbellila          #+#    #+#             */
-/*   Updated: 2024/07/10 21:45:40 by nbellila         ###   ########.fr       */
+/*   Updated: 2024/07/10 21:49:50 by nbellila         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char	**get_paths(char **envp)
 	return (NULL);
 }
 
-char	***get_args(int ac, char **av)
+char	***get_args(t_data data, int ac, char **av)
 {
 	char	***args;
 	int		i;
@@ -60,9 +60,9 @@ char	***get_args(int ac, char **av)
 	if (!args)
 		return (NULL);
 	i = 0;
-	while (i + 2 < ac - 1)
+	while (i + 2 + data.is_heredoc < ac - 1)
 	{
-		args[i] = ft_split(av[i + 2], " ");
+		args[i] = ft_split(av[i + 2 + data.is_heredoc], " ");
 		if (!args[i])
 		{
 			while (i--)
