@@ -6,30 +6,30 @@
 /*   By: nbellila <nbellila@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 13:59:38 by nbellila          #+#    #+#             */
-/*   Updated: 2024/07/10 21:37:33 by nbellila         ###   ########.fr       */
+/*   Updated: 2024/07/10 21:45:40 by nbellila         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	init_data(int argc, char **argv, t_data *data)
+void	init_data(int ac, char **av, t_data *data)
 {
 	data->paths = NULL;
 	data->args = NULL;
 	data->is_heredoc = 0;
-	if (!ft_strncmp(argv[1], "here_doc", 8))
+	if (!ft_strncmp(av[1], "here_doc", 8))
 		data->is_heredoc = 1;
 	data->in_fd = 0;
 	if (!data->is_heredoc)
 	{
-		data->in_fd = open(argv[1], O_RDONLY, 0777);
+		data->in_fd = open(av[1], O_RDONLY, 0777);
 		if (data->in_fd < 1)
 			exit_error("Can't open infile", NULL);
 	}
 	if (!data->is_heredoc)
-		data->out_fd = open(argv[argc - 1], O_WRONLY | O_CREAT | O_TRUNC, 0777);
+		data->out_fd = open(av[ac - 1], O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	else
-		data->out_fd = open(argv[argc - 1], O_WRONLY | O_CREAT | O_APPEND, 0777);
+		data->out_fd = open("here_doc", O_WRONLY | O_CREAT | O_APPEND, 0777);
 	if (data->out_fd < 1)
 	{
 		close(data->in_fd);
@@ -51,18 +51,18 @@ char	**get_paths(char **envp)
 	return (NULL);
 }
 
-char	***get_args(int argc, char **argv)
+char	***get_args(int ac, char **av)
 {
 	char	***args;
 	int		i;
 
-	args = malloc((argc - 2 + 1) * sizeof(char **));
+	args = malloc((ac - 2 + 1) * sizeof(char **));
 	if (!args)
 		return (NULL);
 	i = 0;
-	while (i + 2 < argc - 1)
+	while (i + 2 < ac - 1)
 	{
-		args[i] = ft_split(argv[i + 2], " ");
+		args[i] = ft_split(av[i + 2], " ");
 		if (!args[i])
 		{
 			while (i--)

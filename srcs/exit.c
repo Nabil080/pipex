@@ -6,7 +6,7 @@
 /*   By: nbellila <nbellila@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:05:26 by nbellila          #+#    #+#             */
-/*   Updated: 2024/07/10 20:51:29 by nbellila         ###   ########.fr       */
+/*   Updated: 2024/07/10 21:48:08 by nbellila         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,10 @@ void	free_data(t_data *data)
 		}
 		free(data->args);
 	}
+	if (data->in_fd > 0)
+		close(data->in_fd);
+	if (data->out_fd > 0)
+		close(data->out_fd);
+	if (data->is_heredoc)
+		unlink("here_doc");
 }
