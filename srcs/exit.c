@@ -6,7 +6,7 @@
 /*   By: nbellila <nbellila@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:05:26 by nbellila          #+#    #+#             */
-/*   Updated: 2024/07/10 17:54:28 by nbellila         ###   ########.fr       */
+/*   Updated: 2024/07/10 20:15:36 by nbellila         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,21 @@ void	exit_error(char *str, t_data *data)
 
 void	free_data(t_data *data)
 {
+	size_t	i;
+
 	if (!data)
 		return ;
 	if (data->paths)
-		free_2d((void *)data->paths, ft_strlen((char *)data->paths));
+		free_2d((void **)data->paths, 0);
 	if (data->args)
-		free_2d((void *)data->args, ft_strlen((char *)data->args));
+	{
+		i = 0;
+		while (data->args[i])
+		{
+			free_2d((void **)data->args[i], 0);
+			i++;
+		}
+		free(data->args);
+	}
 	free(data);
 }
