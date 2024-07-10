@@ -6,7 +6,7 @@
 /*   By: nbellila <nbellila@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 11:22:59 by nbellila          #+#    #+#             */
-/*   Updated: 2024/07/10 21:37:46 by nbellila         ###   ########.fr       */
+/*   Updated: 2024/07/10 21:40:18 by nbellila         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@ typedef struct s_data {
 	int		is_heredoc;
 }t_data;
 /*check*/
-void	check_args(int argc, char **argv);
+void	check_args(int ac, char **av);
 /*parsing*/
-void	init_data(int argc, char **argv, t_data *data);
+void	init_data(int ac, char **av, t_data *data);
 
 char	**get_paths(char **envp);
 
-char	***get_args(int argc, char **argv);
+char	***get_args(int ac, char **av);
 
 void	*check_exec(t_data *data);
 /*exit*/
