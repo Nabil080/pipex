@@ -6,7 +6,7 @@
 /*   By: nbellila <nbellila@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 13:59:38 by nbellila          #+#    #+#             */
-/*   Updated: 2024/07/15 21:43:32 by nbellila         ###   ########.fr       */
+/*   Updated: 2024/07/15 22:31:09 by nbellila         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	**get_paths(char **envp)
 char	***get_args(t_data data, char **av)
 {
 	char	***args;
-	int		i;
+	size_t	i;
 
 	args = malloc((data.count + 1) * sizeof(char **));
 	if (!args)
