@@ -1,0 +1,14 @@
+.
+..
+file2
+.git
+.gitignore
+includes
+infile
+libft
+Makefile
+objs
+outfile
+pipex
+srcs
+.vscode

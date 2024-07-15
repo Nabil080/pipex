@@ -6,7 +6,7 @@
 /*   By: nbellila <nbellila@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:12:51 by nbellila          #+#    #+#             */
-/*   Updated: 2024/07/10 23:27:19 by nbellila         ###   ########.fr       */
+/*   Updated: 2024/07/15 22:31:05 by nbellila         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,11 @@ static void	get_here_doc(t_data *data, char *limiter)
 	}
 }
 
-void	init_data(int ac, char **av, t_data *data)
+void	init_data(int ac, char **av, char **ev, t_data *data)
 {
 	data->paths = NULL;
 	data->args = NULL;
+	data->env = ev;
 	data->is_heredoc = 0;
 	if (!ft_strncmp(av[1], "here_doc", 8))
 		data->is_heredoc = 1;
