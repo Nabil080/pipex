@@ -1,32 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nbellila <nbellila@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/10 11:22:38 by nbellila          #+#    #+#             */
-/*   Updated: 2024/07/15 21:42:11 by nbellila         ###   ########.fr       */
+/*   Created: 2024/07/10 22:40:30 by nbellila          #+#    #+#             */
+/*   Updated: 2024/07/15 21:49:13 by nbellila         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int	main(int ac, char **av, char **env)
+void	maxi_piping(t_data data)
 {
-	t_data	data;
+	size_t	cmd;
+	size_t	i;
 
-	check_args(ac, av);
-	init_data(ac, av, &data);
-	data.paths = get_paths(env);
-	if (!data.paths)
-		exit_error("An allocation failed", &data);
-	data.args = get_args(data, av);
-	if (!data.args)
-		exit_error("An allocation failed", &data);
-	if (!check_exec(&data))
-		exit_error("A command is unknown", &data);
-	maxi_piping(data);
-	free_data(&data);
-	exit(EXIT_SUCCESS);
+	if (data.is_heredoc)
+		printf("heredoc\n");
+	cmd = 0;
+	while (data.args[cmd])
+	{
+		printf("cmd[%zu] : %s |", cmd, data.args[cmd][0]);
+		i = 1;
+		while (data.args[cmd][i])
+		{
+			printf("arg[%zu] : %s ", i, data.args[cmd][i]);
+			i++;
+		}
+		printf("\n");
+		cmd++;
+	}
 }
