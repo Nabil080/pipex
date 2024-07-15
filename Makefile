@@ -16,6 +16,7 @@ INCLUDES =	includes \
 SRCS_NAMES =	main.c \
 				init.c \
 				parsing.c \
+				pipex.c \
 				exit.c
 
 SRCS_DIR = srcs/
@@ -66,3 +67,6 @@ ${OBJS_DIR}%.o : ${SRCS_DIR}%.c
 
 test : all
 	./${NAME} infile "cat" "wc -l" outfile
+
+here : all
+	./${NAME} here_doc EOF "cat" "wc -l" outfile
