@@ -66,7 +66,8 @@ ${OBJS_DIR}%.o : ${SRCS_DIR}%.c
 ######################## TEST ########################
 
 test : all
-	@./${NAME} infile "ls -l" "wc -l" outfile
+	./${NAME} infile "ls -l" "wc -l" outfile
+	@echo "---------------------------------"
 	@echo "Result : "
 	@cat outfile
 
