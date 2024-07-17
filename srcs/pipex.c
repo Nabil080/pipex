@@ -6,7 +6,7 @@
 /*   By: nbellila <nbellila@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 22:40:30 by nbellila          #+#    #+#             */
-/*   Updated: 2024/07/17 23:25:11 by nbellila         ###   ########.fr       */
+/*   Updated: 2024/07/17 23:42:14 by nbellila         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,7 @@ static void	ft_child(t_data data, size_t index, int fd[2])
 	close(data.out_fd);
 	if (index == 0 && data.in_fd < 0)
 		exit_error("", &data);
-	else
-		close(data.in_fd);
-	execve(data.args[index][0], data.args[index], data.env);
+	exit(execve(data.args[index][0], data.args[index], data.env));
 }
 
 static void	ft_exec(t_data data, size_t	index)
@@ -56,12 +54,16 @@ void	maxi_piping(t_data data)
 
 	index = 0;
 	dup2(data.in_fd, STDIN_FILENO);
+	if (data.in_fd > -1)
+		close(data.in_fd);
 	while (data.args[index + 1])
 	{
 		ft_exec(data, index);
 		index++;
 	}
 	dup2(data.out_fd, STDOUT_FILENO);
+	if (data.out_fd > -1)
+		close(data.out_fd);
 	pid = fork();
 	if (pid == -1)
 		exit_error("A fork failed\n", &data);
@@ -69,9 +71,7 @@ void	maxi_piping(t_data data)
 	{
 		if (data.out_fd < 0)
 			exit_error("", &data);
-		else
-			close(data.out_fd);
-		execve(data.args[index][0], data.args[index], data.env);
+		exit(execve(data.args[index][0], data.args[index], data.env));
 	}
 	wait(NULL);
 }
