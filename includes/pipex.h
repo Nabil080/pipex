@@ -6,24 +6,22 @@
 /*   By: nbellila <nbellila@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 11:22:59 by nbellila          #+#    #+#             */
-/*   Updated: 2024/07/15 22:31:01 by nbellila         ###   ########.fr       */
+/*   Updated: 2024/07/17 18:59:17 by nbellila         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_H
 # define PIPEX_H
-
 /*wait*/
 # include <sys/wait.h>
-
+/*libft*/
 # include "libft.h"
-
 /*structs*/
 typedef struct s_data {
 	char	**paths;
 	char	**env;
 	char	***args;
-	size_t		count;
+	size_t	count;
 	int		in_fd;
 	int		out_fd;
 	int		is_heredoc;
