@@ -6,7 +6,7 @@
 /*   By: nbellila <nbellila@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:05:26 by nbellila          #+#    #+#             */
-/*   Updated: 2024/07/17 19:48:44 by nbellila         ###   ########.fr       */
+/*   Updated: 2024/07/17 23:22:13 by nbellila         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 void	exit_error(char *str, t_data *data)
 {
-	ft_putendl_fd("/!\\An error occured/!\\", 2);
-	ft_putendl_fd(str, 2);
+	ft_putstr_fd(str, 2);
 	if (data)
 		free_data(data);
 	exit(EXIT_FAILURE);
