@@ -66,10 +66,10 @@ ${OBJS_DIR}%.o : ${SRCS_DIR}%.c
 ######################## TEST ########################
 
 test : all
-	./${NAME} infile "ls -l" "wc -l" outfile
-	@echo "---------------------------------"
-	@echo "Result : "
-	@cat outfile
+	./${NAME} infile "ls -l" "wc -l" /dev/stdout
 
 here : all
-	@./${NAME} here_doc EOF "cat" "wc -l" outfile
+	./${NAME} here_doc EOF "cat" "wc -l" /dev/stdout
+
+leak : all
+	valgrind --trace-children=yes --track-fds=yes --leak-check=full --show-leak-kinds=all ./${NAME} infile "echo premier" "echo bye" outfile

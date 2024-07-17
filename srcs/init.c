@@ -6,7 +6,7 @@
 /*   By: nbellila <nbellila@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:12:51 by nbellila          #+#    #+#             */
-/*   Updated: 2024/07/16 19:49:40 by nbellila         ###   ########.fr       */
+/*   Updated: 2024/07/17 19:07:11 by nbellila         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,18 @@ static void	get_here_doc(t_data *data, char *limiter)
 	while (line)
 	{
 		if (!ft_strncmp(line, limiter, ft_strlen(limiter)))
-			return ;
+		{
+			free(line);
+			break ;
+		}
 		ft_putstr_fd(line, data->in_fd);
 		free(line);
 		line = get_next_line(STDIN_FILENO);
 	}
+	close(data->in_fd);
+	data->in_fd = open("here_doc", O_RDONLY, 0777);
+	if (data->in_fd < 1)
+		exit_error("here_doc open failed", NULL);
 }
 
 void	init_data(int ac, char **av, char **ev, t_data *data)
@@ -47,10 +54,7 @@ void	init_data(int ac, char **av, char **ev, t_data *data)
 		if (data->in_fd < 1)
 			exit_error("Can't open infile", NULL);
 	}
-	if (!data->is_heredoc)
-		data->out_fd = open(av[ac - 1], O_WRONLY | O_CREAT | O_TRUNC, 0777);
-	else
-		data->out_fd = open(av[ac - 1], O_WRONLY | O_CREAT | O_APPEND, 0777);
+	data->out_fd = open(av[ac - 1], O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	if (data->out_fd < 1)
 	{
 		close(data->in_fd);
