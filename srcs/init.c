@@ -6,7 +6,7 @@
 /*   By: nbellila <nbellila@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:12:51 by nbellila          #+#    #+#             */
-/*   Updated: 2024/07/17 19:07:11 by nbellila         ###   ########.fr       */
+/*   Updated: 2024/07/17 19:32:48 by nbellila         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,12 @@ void	init_data(int ac, char **av, char **ev, t_data *data)
 	{
 		data->in_fd = open(av[1], O_RDONLY, 0777);
 		if (data->in_fd < 1)
-			exit_error("Can't open infile", NULL);
+			exit_error("permission denied : infile", NULL);
 	}
 	data->out_fd = open(av[ac - 1], O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	if (data->out_fd < 1)
 	{
 		close(data->in_fd);
-		exit_error("Can't open outfile", NULL);
+		exit_error("permission denied : outfile", NULL);
 	}
 }

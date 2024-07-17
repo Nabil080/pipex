@@ -6,7 +6,7 @@
 /*   By: nbellila <nbellila@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 22:40:30 by nbellila          #+#    #+#             */
-/*   Updated: 2024/07/17 19:15:36 by nbellila         ###   ########.fr       */
+/*   Updated: 2024/07/17 19:41:17 by nbellila         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,12 @@ static void	ft_exec(t_data data, size_t	index)
 	}
 	if (pid == 0)
 		ft_child(data, index, fd);
-	close(fd[1]);
-	dup2(fd[0], STDIN_FILENO);
-	close(fd[0]);
-	wait(NULL);
+	else
+	{
+		close(fd[1]);
+		dup2(fd[0], STDIN_FILENO);
+		close(fd[0]);
+	}
 }
 
 void	maxi_piping(t_data data)
