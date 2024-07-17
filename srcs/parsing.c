@@ -6,7 +6,7 @@
 /*   By: nbellila <nbellila@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 13:59:38 by nbellila          #+#    #+#             */
-/*   Updated: 2024/07/17 19:59:01 by nbellila         ###   ########.fr       */
+/*   Updated: 2024/07/17 20:08:57 by nbellila         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ void	check_args(int ac, char **av)
 	if (ac < 4)
 		exit_error("arg count < 4", NULL);
 	if (ft_strncmp(av[1], "here_doc", 8) && access(av[1], F_OK))
-		exit_error("infile does not exist", NULL);
+		perror(av[1]);
+	else if (ft_strncmp(av[1], "here_doc", 8) && access(av[1], R_OK))
+		perror(av[1]);
 }
 
 char	**get_paths(char **envp)
