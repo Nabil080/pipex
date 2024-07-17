@@ -6,7 +6,7 @@
 /*   By: nbellila <nbellila@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 13:59:38 by nbellila          #+#    #+#             */
-/*   Updated: 2024/07/17 22:38:24 by nbellila         ###   ########.fr       */
+/*   Updated: 2024/07/17 23:23:04 by nbellila         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	check_args(int ac, char **av)
 {
 	if (ac < 4)
-		exit_error("arg count < 4", NULL);
+		exit_error("arg count < 4\n", NULL);
 	if (ft_strncmp(av[1], "here_doc", 8) && access(av[1], F_OK))
 		perror(av[1]);
 	else if (ft_strncmp(av[1], "here_doc", 8) && access(av[1], R_OK))
@@ -73,11 +73,11 @@ static void	get_exec(t_data *data, char **name)
 	{
 		exec_backslash = ft_strjoin(data->paths[i], "/");
 		if (!exec_backslash)
-			exit_error ("An allocation failed", data);
+			exit_error ("An allocation failed\n", data);
 		exec = ft_strjoin(exec_backslash, *name);
 		free(exec_backslash);
 		if (!exec)
-			exit_error ("An allocation failed", data);
+			exit_error ("An allocation failed\n", data);
 		if (access(exec, X_OK) != -1)
 		{
 			free(*name);

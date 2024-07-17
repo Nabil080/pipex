@@ -6,7 +6,7 @@
 /*   By: nbellila <nbellila@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 22:40:30 by nbellila          #+#    #+#             */
-/*   Updated: 2024/07/17 22:45:44 by nbellila         ###   ########.fr       */
+/*   Updated: 2024/07/17 23:23:44 by nbellila         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	ft_child(t_data data, size_t index, int fd[2])
 	dup2(fd[1], STDOUT_FILENO);
 	close(fd[1]);
 	close(data.out_fd);
-	if (data.in_fd < 0)
+	if (index == 0 && data.in_fd < 0)
 		exit(EXIT_FAILURE);
 	else
 		close(data.in_fd);
@@ -31,13 +31,13 @@ static void	ft_exec(t_data data, size_t	index)
 	int		fd[2];
 
 	if (pipe(fd) == -1)
-		exit_error("A pipe failed", &data);
+		exit_error("A pipe failed\n", &data);
 	pid = fork();
 	if (pid == -1)	
 	{
 		close(fd[0]);
 		close(fd[1]);
-		exit_error("A fork failed", &data);
+		exit_error("A fork failed\n", &data);
 	}
 	if (pid == 0)
 		ft_child(data, index, fd);
@@ -64,11 +64,11 @@ void	maxi_piping(t_data data)
 	dup2(data.out_fd, STDOUT_FILENO);
 	pid = fork();
 	if (pid == -1)
-		exit_error("A fork failed", &data);
+		exit_error("A fork failed\n", &data);
 	if (pid == 0)
 	{
 		if (data.out_fd < 0)
-			exit(EXIT_FAILURE);
+			exit_error("", &data);
 		else
 			close(data.out_fd);
 		execve(data.args[index][0], data.args[index], data.env);
