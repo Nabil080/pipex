@@ -6,7 +6,7 @@
 /*   By: nbellila <nbellila@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 22:40:30 by nbellila          #+#    #+#             */
-/*   Updated: 2024/07/17 23:23:44 by nbellila         ###   ########.fr       */
+/*   Updated: 2024/07/17 23:25:11 by nbellila         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	ft_child(t_data data, size_t index, int fd[2])
 	close(fd[1]);
 	close(data.out_fd);
 	if (index == 0 && data.in_fd < 0)
-		exit(EXIT_FAILURE);
+		exit_error("", &data);
 	else
 		close(data.in_fd);
 	execve(data.args[index][0], data.args[index], data.env);
