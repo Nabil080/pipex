@@ -6,11 +6,21 @@
 /*   By: nbellila <nbellila@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:12:51 by nbellila          #+#    #+#             */
-/*   Updated: 2024/07/17 22:43:44 by nbellila         ###   ########.fr       */
+/*   Updated: 2024/07/17 23:06:20 by nbellila         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+static void	print_heredoc(size_t count)
+{
+	while (count)
+	{
+		ft_putstr("pipe ");
+		count--;
+	}
+	ft_putstr("heredoc> ");
+}
 
 static void	get_here_doc(t_data *data, char *limiter)
 {
@@ -18,7 +28,8 @@ static void	get_here_doc(t_data *data, char *limiter)
 
 	data->in_fd = open("here_doc", O_WRONLY | O_CREAT | O_APPEND, 0777);
 	if (data->in_fd < 1)
-		return ;
+		return (perror("here_doc"));
+	print_heredoc(data->count);
 	line = get_next_line(STDIN_FILENO);
 	while (line)
 	{
@@ -29,12 +40,13 @@ static void	get_here_doc(t_data *data, char *limiter)
 		}
 		ft_putstr_fd(line, data->in_fd);
 		free(line);
+		print_heredoc(data->count);
 		line = get_next_line(STDIN_FILENO);
 	}
 	close(data->in_fd);
 	data->in_fd = open("here_doc", O_RDONLY, 0777);
 	if (data->in_fd < 1)
-		exit_error("here_doc open failed", NULL);
+		perror("here_doc");
 }
 
 void	init_data(int ac, char **av, char **ev, t_data *data)
