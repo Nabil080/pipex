@@ -6,7 +6,7 @@
 /*   By: nbellila <nbellila@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 22:40:30 by nbellila          #+#    #+#             */
-/*   Updated: 2024/07/17 23:42:14 by nbellila         ###   ########.fr       */
+/*   Updated: 2024/07/17 23:51:35 by nbellila         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	ft_exec(t_data data, size_t	index)
 	if (pipe(fd) == -1)
 		exit_error("A pipe failed\n", &data);
 	pid = fork();
-	if (pid == -1)	
+	if (pid == -1)
 	{
 		close(fd[0]);
 		close(fd[1]);
