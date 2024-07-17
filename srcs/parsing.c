@@ -6,7 +6,7 @@
 /*   By: nbellila <nbellila@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 13:59:38 by nbellila          #+#    #+#             */
-/*   Updated: 2024/07/15 22:31:09 by nbellila         ###   ########.fr       */
+/*   Updated: 2024/07/17 19:59:01 by nbellila         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char	***get_args(t_data data, char **av)
 	return (args);
 }
 
-static char	*get_exec(t_data *data, char **name)
+static void	get_exec(t_data *data, char **name)
 {
 	size_t	i;
 	char	*exec_backslash;
@@ -69,21 +69,22 @@ static char	*get_exec(t_data *data, char **name)
 	{
 		exec_backslash = ft_strjoin(data->paths[i], "/");
 		if (!exec_backslash)
-			return (NULL);
+			exit_error ("An allocation failed", data);
 		exec = ft_strjoin(exec_backslash, *name);
 		free(exec_backslash);
 		if (!exec)
-			return (NULL);
+			exit_error ("An allocation failed", data);
 		if (access(exec, X_OK) != -1)
 		{
 			free(*name);
 			*name = exec;
-			return (*name);
+			return ;
 		}
 		free(exec);
 		i++;
 	}
-	return (NULL);
+	ft_putstr_fd("command not found: ", 2);
+	ft_putendl_fd(*name, 2);
 }
 
 void	*check_exec(t_data *data)
@@ -94,8 +95,7 @@ void	*check_exec(t_data *data)
 	while (data->args[i])
 	{
 		if (access(data->args[i][0], X_OK) == -1)
-			if (!get_exec(data, &data->args[i][0]))
-				return (NULL);
+			get_exec(data, &data->args[i][0]);
 		i++;
 	}
 	return (data);

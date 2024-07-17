@@ -6,7 +6,7 @@
 /*   By: nbellila <nbellila@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 22:40:30 by nbellila          #+#    #+#             */
-/*   Updated: 2024/07/17 19:41:17 by nbellila         ###   ########.fr       */
+/*   Updated: 2024/07/17 19:54:38 by nbellila         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ static void	ft_child(t_data data, size_t index, int fd[2])
 	dup2(fd[1], STDOUT_FILENO);
 	close(fd[1]);
 	close(data.out_fd);
-	execve(data.args[index][0], data.args[index], data.env);
+	// if (access(data.args[index][0], X_OK) != -1)
+		execve(data.args[index][0], data.args[index], data.env);
 }
 
 static void	ft_exec(t_data data, size_t	index)
