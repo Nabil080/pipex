@@ -6,7 +6,7 @@
 /*   By: nbellila <nbellila@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 11:22:38 by nbellila          #+#    #+#             */
-/*   Updated: 2024/07/17 19:41:20 by nbellila         ###   ########.fr       */
+/*   Updated: 2024/07/17 20:03:51 by nbellila         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@ int	main(int ac, char **av, char **env)
 	data.args = get_args(data, av);
 	if (!data.args)
 		exit_error("An allocation failed", &data);
-	if (!check_exec(&data))
-		exit_error("command not found", &data);
+	check_exec(&data);
 	maxi_piping(data);
 	free_data(&data);
 	exit(EXIT_SUCCESS);
