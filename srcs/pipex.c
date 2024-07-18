@@ -6,7 +6,7 @@
 /*   By: nbellila <nbellila@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 22:40:30 by nbellila          #+#    #+#             */
-/*   Updated: 2024/07/18 19:12:14 by nbellila         ###   ########.fr       */
+/*   Updated: 2024/07/18 20:01:19 by nbellila         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ static void	ft_child(t_data data, size_t index, int fd[2])
 	close(data.out_fd);
 	if (index == 0 && data.in_fd < 0)
 		exit_error("", &data);
-	exit(execve(data.args[index][0], data.args[index], data.env));
+	execve(data.args[index][0], data.args[index], data.env);
+	exit_error("", &data);
 }
 
 static void	ft_exec(t_data data, size_t	index)
@@ -49,17 +50,17 @@ static void	ft_exec(t_data data, size_t	index)
 
 void	maxi_piping(t_data data)
 {
-	size_t	index;
+	size_t	i;
 	pid_t	pid;
 
-	index = 0;
+	i = 0;
 	dup2(data.in_fd, STDIN_FILENO);
 	if (data.in_fd > -1)
 		close(data.in_fd);
-	while (data.args[index + 1])
+	while (data.args[i + 1])
 	{
-		ft_exec(data, index);
-		index++;
+		ft_exec(data, i);
+		i++;
 	}
 	dup2(data.out_fd, STDOUT_FILENO);
 	if (data.out_fd > -1)
@@ -69,9 +70,8 @@ void	maxi_piping(t_data data)
 		exit_error("A fork failed\n", &data);
 	if (pid == 0)
 	{
-		if (data.out_fd < 0)
+		if (data.out_fd < 0 || execve(*data.args[i], data.args[i], data.env))
 			exit_error("", &data);
-		exit(execve(data.args[index][0], data.args[index], data.env));
 	}
 	wait(NULL);
 }
