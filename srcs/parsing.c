@@ -6,7 +6,7 @@
 /*   By: nbellila <nbellila@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 13:59:38 by nbellila          #+#    #+#             */
-/*   Updated: 2024/07/18 18:26:42 by nbellila         ###   ########.fr       */
+/*   Updated: 2024/07/18 20:00:05 by nbellila         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	check_args(int ac, char **av)
 
 	if (ac < 2)
 		exit_error("Wrong number of arguments\n", NULL);
-	not_heredoc = ft_strncmp(av[1], "here_doc", 8); 
+	not_heredoc = ft_strncmp(av[1], "here_doc", 8);
 	if (ac < 5 || (!not_heredoc && ac < 6))
 		exit_error("Wrong number of arguments\n", NULL);
 	if (not_heredoc && access(av[1], F_OK))
