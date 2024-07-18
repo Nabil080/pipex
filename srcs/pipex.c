@@ -6,7 +6,7 @@
 /*   By: nbellila <nbellila@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 22:40:30 by nbellila          #+#    #+#             */
-/*   Updated: 2024/07/18 17:54:14 by nbellila         ###   ########.fr       */
+/*   Updated: 2024/07/18 18:08:46 by nbellila         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,4 @@ void	maxi_piping(t_data data)
 			exit_error("", &data);
 		exit(execve(data.args[index][0], data.args[index], data.env));
 	}
-	wait(NULL);
 }
