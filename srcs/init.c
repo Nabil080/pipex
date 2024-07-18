@@ -6,7 +6,7 @@
 /*   By: nbellila <nbellila@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:12:51 by nbellila          #+#    #+#             */
-/*   Updated: 2024/07/17 23:06:20 by nbellila         ###   ########.fr       */
+/*   Updated: 2024/07/18 18:00:48 by nbellila         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	print_heredoc(size_t count)
 {
-	while (count)
+	while (count > 1)
 	{
 		ft_putstr("pipe ");
 		count--;
@@ -62,5 +62,8 @@ void	init_data(int ac, char **av, char **ev, t_data *data)
 		get_here_doc(data, av[2]);
 	else
 		data->in_fd = open(av[1], O_RDONLY, 0777);
-	data->out_fd = open(av[ac - 1], O_WRONLY | O_CREAT | O_TRUNC, 0777);
+	if (data->is_heredoc)
+		data->out_fd = open(av[ac - 1], O_WRONLY | O_CREAT | O_APPEND, 0777);
+	else
+		data->out_fd = open(av[ac - 1], O_WRONLY | O_CREAT | O_TRUNC, 0777);
 }
